@@ -1,15 +1,39 @@
-import {Component} from '@angular/core';
+import {Component, Renderer2} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatIconModule, MatDividerModule,MatExpansionModule],
+  imports: [RouterOutlet, MatButtonModule, MatIconModule, MatDividerModule, MatExpansionModule,
+    MatButtonToggleModule, MatSlideToggle, MatCheckboxModule, MatButtonToggleModule, MatSlideToggleModule],
   template: `
+
+    <section>
+
+      Theme Change:
+      <mat-button-toggle-group [value]="'light'"
+                               (valueChange)="onToggleTheme($event)"
+                               hideSingleSelectionIndicator>
+        <mat-button-toggle color="primary" value="dark">Dark</mat-button-toggle>
+        <mat-button-toggle color="accent" value="light">Light</mat-button-toggle>
+      </mat-button-toggle-group>
+    </section>
+
+    <section>
+      <mat-checkbox color="primary">Primary</mat-checkbox>
+      <mat-checkbox color="accent">Accent</mat-checkbox>
+      <mat-checkbox class="example-margin" color="warn">Warn</mat-checkbox>
+      <mat-checkbox class="example-margin" [disabled]="true">Disabled</mat-checkbox>
+    </section>
+
+
     <section>
       <div class="example-label">Basic</div>
       <div class="example-button-row">
@@ -143,4 +167,19 @@ import {MatExpansionModule} from "@angular/material/expansion";
 })
 export class AppComponent {
   title = 'angular-material-custom-theme';
+  selectTheme = 'light-theme';
+
+  constructor(private renderer: Renderer2) {
+  }
+
+
+  onToggleTheme(theme: string = 'light') {
+    if (theme === 'light') {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'light-theme');
+    }
+
+    this.renderer.addClass(document.body, `${theme}-theme`);
+  }
 }
