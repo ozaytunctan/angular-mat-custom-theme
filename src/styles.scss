@@ -1,1 +1,95 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$custom-primary-palette: (
+  50:#CFD9DE,
+  100:#C2CFD6,
+  200:#9DB2BE,
+  300:#7893A5,
+  400:#859DAD,
+  500:#7893A5,
+  600:#6C899D,
+  700:#627F93,
+  800:#5A7587,
+  900:#5A7587,
+  contrast:(
+    50:#000,
+    100:#000,
+    200:#000,
+    300:#fff,
+    400:#fff,
+    500:#fff,
+    600:#fff,
+    700:#fff,
+    800:#fff,
+    900:#fff,
+  )
+);
+
+$custom-primary-palette2: (
+  50 : #edeaf4,
+  100 : #d1cbe4,
+  200 : #b3a8d2,
+  300 : #9585bf,
+  400 : #7e6ab2,
+  500 : #6750a4,
+  600 : #5f499c,
+  700 : #544092,
+  800 : #4a3789,
+  900 : #392778,
+  A100 : #eae9ff,
+  A200 : #b7b6ff,
+  A400 : #8583ff,
+  A700 : #6c6aff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #ffffff,
+  )
+);
+
+$custom-typography: mat.m2-define-typography-config($font-family: "Roboto , sans-serif");
+//$custom-primary: mat.m2-define-palette($custom-primary-palette);
+//$custom-primary: mat.m2-define-palette(mat.$m2-indigo-palette, A200, A100, A400);
+//$custom-primary: mat.m2-define-palette($custom-primary-palette2);
+$custom-primary: mat.m2-define-palette($custom-primary-palette);
+$custom-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+//$custom-accent: mat.m2-define-palette($custom-primary-palette);
+$custom-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+
+$custom-theme: mat.m2-define-light-theme(
+    (
+      color:(
+        primary: $custom-primary,
+        accent: $custom-accent,
+        warn: $custom-warn,
+      ),
+      typography:$custom-typography
+    ),
+);
+@include mat.all-component-themes($custom-theme);
+//@include mat.button-theme($custom-theme);
+//@include mat.checkbox-theme($custom-theme);
